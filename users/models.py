@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.deconstruct import deconstructible
+from house.models import House
 import os
 
 
@@ -21,6 +22,7 @@ user_profie_image_path = GenarateProfileImagePath()
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     image = models.ImageField(upload_to=user_profie_image_path,blank=True, null=True)
+    house = models.ForeignKey(House,on_delete=models.SET_NULL, blank=True, null=True,related_name='members')
 
     def __str__(self):
         return f'{self.user.username}\'s Profile'
